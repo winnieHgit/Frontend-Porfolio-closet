@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useRouter } from "next/router";
+import NavBar from "@/components/NavBar";
 
 const LoginFormValidator = z
   .object({
@@ -47,6 +48,7 @@ const LoginPage = () => {
 
   return (
     <div>
+      <NavBar />
       <h2>Login to check your upcoming outfit</h2>
       <form onSubmit={handleSubmit(handleLoginSubmit)}>
         <div>

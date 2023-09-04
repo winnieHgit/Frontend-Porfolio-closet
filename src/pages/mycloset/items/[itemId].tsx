@@ -4,6 +4,8 @@ import axios from "axios";
 import Image from "next/image";
 import { Closetitems } from "@/pages/mycloset";
 import { DeleteItemButton } from "@/components/deleteButton";
+import NavBar from "@/components/NavBar";
+import WeatherInfo from "@/components/withoutToken";
 
 const ClosetItemPage = () => {
   const [item, setItem] = useState<null | Closetitems>(null);
@@ -46,20 +48,24 @@ const ClosetItemPage = () => {
   
 
   return (
-    <div className=" flex  flex-col content-center flex-wrap">
-      <h2>Closet Item Detail Page</h2>
-      <div className="flex flex-wrap">
-        <span>{item.type}</span>
-        <span>{item.name}</span>
+    <>
+    <NavBar />
+    <div className=" py-8 flex  flex-col content-center flex-wrap">
+      <h2 className="flex justify-center ">individual Item Page</h2>
+      <div className="flex-column flex-wrap py-8">
+        <div className="flex justify-center ">{item.type}</div>
+        <div className="flex justify-center ">{item.name}</div>
       </div>
-      <Image className="flex flex-wrap border-solid hover:border-dotted border-amber-200 border-8"
+      <Image className="flex flex-wrap contend-center border-solid hover:border-dotted border-amber-200 border-8"
         src={item.imgUrl}
         alt={`Image of ${item.name}`}
         width={300}
         height={300}
       />
       <DeleteItemButton />
+      {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
     </div>
+    </>
   );
 };
 

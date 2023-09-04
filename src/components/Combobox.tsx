@@ -34,6 +34,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const closetItemName = [
   { label: "Tanks", value: "tank" },
@@ -48,7 +49,7 @@ const closetItemName = [
   { label: "Raincoats", value: "raincoat" },
   { label: "Jackets", value: "jacket" },
   { label: "Jeans", value: "jean" },
-  { label: "Shorts", value: "short" },
+  { label: "Shorts", value: "shorts" },
   { label: "Sweatpants", value: "sweatpants" },
   { label: "Leggings", value: "legging" },
   { label: "Pants", value: "pants" },
@@ -82,11 +83,14 @@ export function ComboboxForm() {
     console.log(data);
 
     toast({
-      title: "You submitted the following values:",
+      title: "Upload Item", //"You uploaded a new item" insted of in the description
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        <>
+          <p>"You uploaded a new item!"</p> 
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        </>
       ),
     });
   }
@@ -177,9 +181,10 @@ export function ComboboxForm() {
                 </FormItem>
               )}
             />
-
-            <Button type="submit">Submit</Button>
-            <Button onClick={() => setHideForm(true)}>Close</Button>
+            <div className="flex flex-row space-x-8">
+              <Button type="submit">Submit</Button>
+              <Button onClick={() => setHideForm(true)}>Close</Button>
+            </div>
           </form>
         </Form>
       ) : (

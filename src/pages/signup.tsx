@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/router";
 import axios from "axios";
+import NavBar from "@/components/NavBar";
 
 const SignupFormValidator = z
   .object({
@@ -31,11 +32,12 @@ const SignupPage = () => {
 
   return (
     <div>
-      <h2>Sign up </h2>
+      <NavBar />
+      <h2 className="">Sign up </h2>
       <p>
-        sleep one more minute in the morning really matters,try out the ready
+        {/* sleep one more minute in the morning really matters,try out the ready
         matching ourfit for upcoming days with someone already thought about the
-        weather for you.
+        weather for you. */}
       </p>
       <div>
         <form onSubmit={handleSubmit(handleSignupForm)}>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import NavBar from "@/components/NavBar";
 
 interface Closetitems {
   id: number;
@@ -23,11 +24,14 @@ const OutfitPage = () => {
 
   useEffect(() => {
     const outfitFromApi = async () => {
-      const response = await axios.get(`http://localhost:3007/outfits`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3007/outfit/recommendation"`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setOutfits(response.data);
     };
 
@@ -39,11 +43,12 @@ const OutfitPage = () => {
   }
   return (
     <div>
+      <NavBar />
       <h2 className="py-10">Your current outfits </h2>
       {outfits.map((outfit: Outfit) => {
         return (
           <div key={outfit.id} className="border flex flex-row basis-1/5">
-            <Link href={`/outfits/${outfit.id}`}>
+            {/* <Link href={`/outfits/${outfit.id}`}> */}
               {outfit.clothingItem.map((item: Closetitems) => {
                 return (
                   <div key={item.id} className=" flex flex-row basis-1/5">
@@ -56,7 +61,7 @@ const OutfitPage = () => {
                   </div>
                 );
               })}
-            </Link>
+            {/* </Link> */}
           </div>
         );
       })}
