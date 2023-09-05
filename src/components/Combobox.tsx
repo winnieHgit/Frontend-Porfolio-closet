@@ -1,6 +1,8 @@
 //need to make a button to close the form//
 
 "use client";
+import apiKeys from "../../secrets/APIKEYs.json";
+import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Label } from "./ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -65,7 +67,7 @@ const FormSchema = z.object({
   itemType: z.string({
     required_error: "Please select a item.",
   }),
-  file: z.string(),
+  file: z.any(),
 });
 
 export function ComboboxForm() {
@@ -79,14 +81,50 @@ export function ComboboxForm() {
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const selectedItem=data.itemType
+    // const selectedItemType=
+    console.log(selectedItem);
+
+    const response = await axios.post(
+      `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
+      data.file[0],
+      {
+        headers: {
+          "Content-Type": "image/png",
+        },
+      }
+    );
+    const ItemUrl = response.data.url;
+
+    // console.log(response.data);
+    console.log(ItemUrl);
+
+    // const UploadedImage = localStorage.setItem("imgUrl", ItemUrl);
+    // console.log(localStorage.getItem("imgUrl"));
+
+    try {
+      const urlData = await axios.post(
+        `http://localhost:3007/mycloset/newitem`,
+        { imgUrl: ItemUrl,
+          name:selectedItem,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(urlData);
+    } catch (error) {
+      console.log("having error post imgUrl to the database", error);
+    }
 
     toast({
       title: "Upload Item", //"You uploaded a new item" insted of in the description
       description: (
         <>
-          <p>"You uploaded a new item!"</p> 
+          <p>"You uploaded a new item!"</p>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
           </pre>
@@ -122,14 +160,14 @@ export function ComboboxForm() {
                               ? closetItemName.find(
                                   (type) => type.value === field.value
                                 )?.label
-                              : "Select your closet item name"}
+                              : "What type of clothes do you want to add?"}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-full max-h-[200px] overflow-y-auto p-0">
                         <Command>
-                          <CommandInput placeholder="Search type..." />
+                          <CommandInput placeholder="Search item..." />
                           <CommandEmpty>No type found.</CommandEmpty>
 
                           <CommandGroup>
@@ -140,6 +178,7 @@ export function ComboboxForm() {
                                 onSelect={() => {
                                   form.setValue("itemType", item.value);
                                 }}
+                                // onSelect={() => setValue(item.value)}
                               >
                                 <Check
                                   className={cn(
@@ -150,7 +189,7 @@ export function ComboboxForm() {
                                   )}
                                 />
                                 {item.label}
-                              </CommandItem>
+                              </CommandItem> //here
                             ))}
                           </CommandGroup>
                         </Command>
@@ -168,18 +207,30 @@ export function ComboboxForm() {
             <FormField
               control={form.control}
               name="file"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <Label htmlFor="picture">Picture</Label>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} id="picture" type="file" />
-                  </FormControl>
-                  <FormDescription />
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                const [val, setVal] = useState<string>();
+                return (
+                  <FormItem>
+                    <FormLabel>
+                      <Label htmlFor="picture">Picture</Label>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        value={val}
+                        onChange={(e) => {
+                          setVal(e.target.value);
+                          field.onChange(e.target.files);
+                        }}
+                        id="picture"
+                        type="file"
+                      />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
             <div className="flex flex-row space-x-8">
               <Button type="submit">Submit</Button>

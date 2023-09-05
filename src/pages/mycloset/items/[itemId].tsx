@@ -48,7 +48,7 @@ const ClosetItemPage = () => {
   
 
   return (
-    <>
+    <div className="overflow-x-auto">
     <NavBar />
     <div className=" py-8 flex  flex-col content-center flex-wrap">
       <h2 className="flex justify-center ">individual Item Page</h2>
@@ -65,7 +65,7 @@ const ClosetItemPage = () => {
       <DeleteItemButton />
       {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
     </div>
-    </>
+    </div>
   );
 };
 

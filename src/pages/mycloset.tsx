@@ -9,58 +9,58 @@ import React from "react";
 import NavBar from "@/components/NavBar";
 import apiKeys from "../../secrets/APIKEYs.json";
 
-export const ImgUpload = () => {
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files !== null) {
-      const response = await axios.post(
-        `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
-        event.target.files[0],
-        {
-          headers: {
-            "Content-Type": "image/png",
-          },
-        }
-      );
-      console.log("hello");
-      console.log(response.data.url); // Here is your new Image URL!
+// export const ImgUpload = () => {
+//   const handleFileUpload = async (
+//     event: React.ChangeEvent<HTMLInputElement>
+//   ) => {
+//     if (event.target.files !== null) {
+//       const response = await axios.post(
+//         `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
+//         event.target.files[0],
+//         {
+//           headers: {
+//             "Content-Type": "image/png",
+//           },
+//         }
+//       );
+//       console.log("hello");
+//       console.log(response.data.url); // Here is your new Image URL!
 
-      const ItemUrl = response.data.url;
+//       const ItemUrl = response.data.url;
 
-      try{
-      const urlData = await axios.post(
-        `http://localhost:3007/mycloset/add-closet-item`,
-        {imgUrl:ItemUrl,},
-        {headers:{
-          Authorization:`Bearer ${localStorage.getItem("token")}`,
-        }}
-      );
-      console.log(urlData);
-      }catch(error){
-        console.log("having error post imgUrl to the database",error)
-      }
-    }
-  };
-  return (
-    <>
-      <h1>Upload an image</h1>
-      return (
-      <div className="fixed bottom-10 right-10 bg-yellow-500  p-4 rounded-full">
-        <label htmlFor="picture">
-          <ImagePlus className="text-white" />
-        </label>
-        <Input
-          onChange={handleFileUpload}
-          className="hidden"
-          id="picture"
-          type="file"
-        />
-      </div>
-      );
-    </>
-  );
-};
+//       try{
+//       const urlData = await axios.post(
+//         `http://localhost:3007/mycloset/add-closet-item`,
+//         {imgUrl:ItemUrl,},
+//         {headers:{
+//           Authorization:`Bearer ${localStorage.getItem("token")}`,
+//         }}
+//       );
+//       console.log(urlData);
+//       }catch(error){
+//         console.log("having error post imgUrl to the database",error)
+//       }
+//     }
+//   };
+  // return (
+  //   <>
+  //     <h1>Upload an image</h1>
+  //     return (
+  //     <div className="fixed bottom-10 right-10 bg-yellow-500  p-4 rounded-full">
+  //       <label htmlFor="picture">
+  //         <ImagePlus className="text-white" />
+  //       </label>
+  //       <Input
+  //         onChange={handleFileUpload}
+  //         className="hidden"
+  //         id="picture"
+  //         type="file"
+  //       />
+  //     </div>
+  //     );
+  //   </>
+  // );
+
 
 interface Closet {
   id: number;
@@ -115,14 +115,14 @@ const MyCloset = () => {
     );
 
   return (
-    <div>
+    <div className="overflow-x-auto">
       <NavBar />
-      <h2 className="py-10">My Closet Page</h2>
+      {/* <h2 className="py-10 ">Welcome to My Closet</h2> */}
 
       <InputFile />
       <div>
         <h3 className="py-6">Tops</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1  ">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1  overflow-y-auto">
           {tops.map((item: Closetitems) => {
             return (
               <div key={item.id} className=" flex flex-row basis-1/5">
@@ -144,7 +144,7 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Bottoms</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 ">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
           {bottoms.map((item: Closetitems) => {
             return (
               <div key={item.id} className=" flex flex-row basis-1/5">
@@ -166,7 +166,7 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Jumpsuits</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 ">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
           {jumpsuits.map((item: Closetitems) => {
             return (
               <div key={item.id} className=" flex flex-row basis-1/5">
@@ -188,7 +188,7 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Dresses</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 ">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
           {dresses.map((item: Closetitems) => {
             return (
               <div key={item.id} className=" flex flex-row basis-1/5">
