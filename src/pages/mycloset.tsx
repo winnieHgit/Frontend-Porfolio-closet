@@ -106,11 +106,16 @@ const MyCloset = () => {
         </ul>
       </div>
       <div>
-        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">Bottoms</h3>
+        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">
+          Bottoms
+        </h3>
         <ul className="flex flex-row  bg-white  p-1 overflow-y-auto space-x-4">
           {bottoms.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 ">
+              <div
+                key={item.id}
+                className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 "
+              >
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
                     <p className="w-[100px] text-xs px-2 py-2 text-center bg-yellow-300 text-yellow-900 font-bold">
@@ -131,11 +136,16 @@ const MyCloset = () => {
         </ul>
       </div>
       <div>
-        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">Jumpsuits</h3>
+        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">
+          Jumpsuits
+        </h3>
         <ul className="flex flex-row  bg-white  p-1 overflow-y-auto space-x-4">
           {jumpsuits.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 ">
+              <div
+                key={item.id}
+                className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 "
+              >
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
                     <p className="w-[100px] text-xs px-2 py-2 text-center bg-yellow-300 text-yellow-900 font-bold">
@@ -156,11 +166,16 @@ const MyCloset = () => {
         </ul>
       </div>
       <div>
-        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">Dresses</h3>
+        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">
+          Dresses
+        </h3>
         <ul className="flex flex-row  bg-white  p-1 overflow-y-auto space-x-4">
           {dresses.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 ">
+              <div
+                key={item.id}
+                className=" flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2 "
+              >
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
                     <p className="w-[100px] text-xs px-2 py-2 text-center bg-yellow-300 text-yellow-900 font-bold">
@@ -180,23 +195,6 @@ const MyCloset = () => {
           })}
         </ul>
       </div>
-      {/* {closet.items.map((props: Closetitems) => {
-        return (
-          <div key={props.id}>
-            <Link href={`/mycloset/${props.id}`}>
-              <span>{props.type}</span>
-              <span>{props.name}</span>
-
-              <Image
-                src={props.imgUrl}
-                alt={`Image of ${props.name}`}
-                width={100}
-                height={100}
-              />
-            </Link>
-          </div>
-        );
-      })} */}
     </div>
   );
 };
