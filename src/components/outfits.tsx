@@ -52,7 +52,7 @@ const OutfitPage = (props: OutfitPageProps) => {
     };
 
     outfitFromApi();
-  }, []);
+  }, [props]);
 
   if (outfits === null) {
     return <p>Loading outfit...</p>;
@@ -65,9 +65,12 @@ const OutfitPage = (props: OutfitPageProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-16 ">
         {!!outfits &&
-          outfits.map((outfit: DailyRecommendation) => {
+          outfits.map((outfit: DailyRecommendation, i: number) => {
             return (
-              <div className="grid grid-row justify-center justify-items-center  basis-1/2 items-start content-start	">
+              <div
+                key={i}
+                className="grid grid-row justify-center justify-items-center  basis-1/2 items-start content-start	"
+              >
                 <div
                   key={outfit.date}
                   className=" text-xl flex justify-items-center md:my-4 text-2xl"

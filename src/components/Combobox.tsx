@@ -1,7 +1,6 @@
 //need to make a button to close the form//
 
 "use client";
-import apiKeys from "../../secrets/APIKEYs.json";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Label } from "./ui/label";
@@ -10,7 +9,6 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 // import CloseButton from 'react-bootstrap/CloseButton'
-import { ImagePlus } from "lucide-react";
 import { InputFile } from "./Fileinput";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -92,10 +90,6 @@ const FormSchema = z.object({
 
 export function ComboboxForm() {
   const [hideform, setHideForm] = useState(false);
-  const handleHide = () => {
-    setHideForm(true);
-    console.log("close here!");
-  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -109,7 +103,7 @@ export function ComboboxForm() {
     console.log(selectedCategory);
 
     const response = await axios.post(
-      `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
+      `https://www.filestackapi.com/api/store/S3?key=${process.env["NEXT_PUBLIC_FILESTACK_API_KEY"]}`,
       data.file[0],
       {
         headers: {
@@ -144,7 +138,7 @@ export function ComboboxForm() {
       title: "Upload Item", //"You uploaded a new item" insted of in the description
       description: (
         <>
-          <p>"You uploaded a new item!"</p>
+          <p>You uploaded a new item!</p>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
           </pre>
@@ -292,6 +286,7 @@ export function ComboboxForm() {
               control={form.control}
               name="file"
               render={({ field }) => {
+                // eslint-disable-next-line
                 const [val, setVal] = useState<string>();
                 return (
                   <FormItem>

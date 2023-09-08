@@ -1,10 +1,7 @@
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import apiKeys from "../../secrets/APIKEYs.json";
 import Link from "next/link";
-
 
 export interface WeatherForecast {
   location: WeatherForecastLocation;
@@ -55,7 +52,7 @@ const WeatherInfo = (props: CalendarProps) => {
     const fetchWeatherCalendar = async () => {
       try {
         const response = await axios.get(
-          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${props.city},${props.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${apiKeys.weathervisualcrossing}`
+          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${props.city},${props.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${process.env["25CJCH3F4XF7G77NBG52X4ZDM"]}`
         );
         setCalendar(response.data);
       } catch (error) {
@@ -78,23 +75,26 @@ const WeatherInfo = (props: CalendarProps) => {
       <div className="flex">
         {calendar.location.values.map(
           (forecastDay: WeatherForecastDay, i: number) => (
-            
-             <div key={forecastDay.datetime} className=" md: flex flex-row ld:flex flex-wrap justify-center space-x-4  border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8 pl-4 pr-4 mx-8">
-          
-              <div className="flex flew-row flex-wrap space-around justify-center items-center">{getDate(forecastDay.datetime)}</div>
+            <div
+              key={forecastDay.datetime}
+              className=" md: flex flex-row ld:flex flex-wrap justify-center space-x-4  border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8 pl-4 pr-4 mx-8"
+            >
+              <div className="flex flew-row flex-wrap space-around justify-center items-center">
+                {getDate(forecastDay.datetime)}
+              </div>
               {/* <Link href={`/outfit/${outfit.id}`}> */}
               <Image
                 src={`https://openweathermap.org/img/wn/${
                   mapIconsToOpenWeather[forecastDay.icon]
                 }@2x.png`}
-                 alt="weather icon"
-                 width={50}
+                alt="weather icon"
+                width={50}
                 height={50}
               />
               <div>{forecastDay.temp} ºC</div>
               <div>Description: {forecastDay.conditions}</div>
               {/* </Link> */}
-             </div>
+            </div>
           )
         )}
       </div>

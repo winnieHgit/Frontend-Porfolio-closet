@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import apiKeys from "../../secrets/APIKEYs.json";
 
 export interface WeatherForecastV2 {
   location: WeatherForecastV2Location;
@@ -52,7 +51,7 @@ const CalendarV2 = (props: CalendarV2Props) => {
     const fetchWeatherCalendar = async () => {
       try {
         const response = await axios.get(
-          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${props.city},${props.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${apiKeys.weathervisualcrossing}`
+          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${props.city},${props.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${process.env["NEXT_PUBLIC_WEATHERICON_API_KEY"]}`
         );
         setCalendar(response.data);
       } catch (error) {
@@ -73,30 +72,28 @@ const CalendarV2 = (props: CalendarV2Props) => {
   } else {
     return (
       <div className="grid justify-center basis-1/2">
-        {calendar.location.values.map(
-          (forecastDay: WeatherForecastDay, i: number) => (
-            //   <DayRecommendation forecast={forecastDay} key={i} />
+        {calendar.location.values.map((forecastDay: WeatherForecastDay) => (
+          //   <DayRecommendation forecast={forecastDay} key={i} />
 
-            <div
-              key={forecastDay.datetime}
-              className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8"
-            >
-              <p>{getDate(forecastDay.datetime)}</p>
-              {/* <Link href={`/outfit/${outfit.id}`}> */}
-              <Image
-                src={`https://openweathermap.org/img/wn/${
-                  mapIconsToOpenWeather[forecastDay.icon]
-                }@2x.png`}
-                alt="weather icon"
-                width={50}
-                height={50}
-              />
-              <span>{forecastDay.temp}</span>
-              <p>Description: {forecastDay.conditions}</p>
-              {/* </Link> */}
-            </div>
-          )
-        )}
+          <div
+            key={forecastDay.datetime}
+            className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8"
+          >
+            <p>{getDate(forecastDay.datetime)}</p>
+            {/* <Link href={`/outfit/${outfit.id}`}> */}
+            <Image
+              src={`https://openweathermap.org/img/wn/${
+                mapIconsToOpenWeather[forecastDay.icon]
+              }@2x.png`}
+              alt="weather icon"
+              width={50}
+              height={50}
+            />
+            <span>{forecastDay.temp}</span>
+            <p>Description: {forecastDay.conditions}</p>
+            {/* </Link> */}
+          </div>
+        ))}
       </div>
     );
   }
