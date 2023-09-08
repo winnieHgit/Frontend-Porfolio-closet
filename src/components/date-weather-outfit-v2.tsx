@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import apiKeys from "../../secrets/APIKEYs.json";
-import OutfitGeneration from "./weatherToCategories";
-// import Link from "next/link";
-import WeatherCondition from "./weatherTOitem2";
-import DayRecommendation from "./DayRecommendation";
 
 export interface WeatherForecastV2 {
   location: WeatherForecastV2Location;

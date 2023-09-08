@@ -6,10 +6,8 @@ import { Closetitems } from "@/pages/mycloset";
 import { DeleteItemButton } from "@/components/deleteButton";
 import NavBar from "@/components/NavBar";
 
-
 const ClosetItemPage = () => {
   const [item, setItem] = useState<null | Closetitems>(null);
-  
 
   const router = useRouter();
 
@@ -21,7 +19,7 @@ const ClosetItemPage = () => {
     }
     const getItemFromApi = async () => {
       const response = await axios.get(
-        `http://localhost:3007/mycloset/items/${clostItemIdIdFromUrl}`,
+        `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset/items/${clostItemIdIdFromUrl}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,41 +30,32 @@ const ClosetItemPage = () => {
       console.log(response.data);
     };
 
-    
     getItemFromApi();
   }, [clostItemIdIdFromUrl]);
-
-  
-
 
   if (item === null) {
     return <p>Loading Item...</p>;
   }
 
-
-
-  
-  
-  
-
   return (
     <div className="overflow-x-auto">
-    <NavBar />
-    <div className=" py-8 flex  flex-col content-center flex-wrap">
-      <h2 className="flex justify-center ">individual Item Page</h2>
-      <div className="flex-column flex-wrap py-8">
-        <div className="flex justify-center ">{item.type}</div>
-        <div className="flex justify-center ">{item.name}</div>
+      <NavBar />
+      <div className=" py-8 flex  flex-col content-center flex-wrap">
+        <h2 className="flex justify-center ">individual Item Page</h2>
+        <div className="flex-column flex-wrap py-8">
+          <div className="flex justify-center ">{item.type}</div>
+          <div className="flex justify-center ">{item.name}</div>
+        </div>
+        <Image
+          className="flex flex-wrap contend-center border-solid hover:border-dotted border-amber-200 border-8"
+          src={item.imgUrl}
+          alt={`Image of ${item.name}`}
+          width={300}
+          height={300}
+        />
+        <DeleteItemButton />
+        {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
       </div>
-      <Image className="flex flex-wrap contend-center border-solid hover:border-dotted border-amber-200 border-8"
-        src={item.imgUrl}
-        alt={`Image of ${item.name}`}
-        width={300}
-        height={300}
-      />
-      <DeleteItemButton />
-      {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
-    </div>
     </div>
   );
 };

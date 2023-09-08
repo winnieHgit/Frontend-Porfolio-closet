@@ -30,11 +30,14 @@ const MyCloset = () => {
   useEffect(() => {
     const getCategoryFromApi = async () => {
       try {
-        const response = await axios.get(`http://localhost:3007/mycloset`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setCloset(response.data);
       } catch (error) {
         console.log("Something went wrong with request:", error);

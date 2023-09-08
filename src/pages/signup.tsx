@@ -22,18 +22,20 @@ const SignupPage = () => {
   const router = useRouter();
 
   const handleSignupForm = async (data: Signup) => {
-    const response = await axios.post("http://localhost:3007/signup", data);
+    const response = await axios.post(
+      `${process.env["NEXT_PUBLIC_API_URL"]}/signup`,
+      data
+    );
     console.log(data.username);
     router.push("/");
   };
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Signup>({
     resolver: zodResolver(SignupFormValidator),
-    
   });
 
   return (

@@ -80,11 +80,10 @@ const clothesCategory = [
     value: "Dresses",
     label: "Dresses",
   },
-  
-]as const;
+] as const;
 
 const FormSchema = z.object({
-  itemCategory:z.string(),
+  itemCategory: z.string(),
   itemType: z.string({
     required_error: "Please select a item.",
   }),
@@ -103,9 +102,9 @@ export function ComboboxForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const selectedItem=data.itemType;
-    const selectedCategory=data.itemCategory
-   
+    const selectedItem = data.itemType;
+    const selectedCategory = data.itemCategory;
+
     console.log(selectedItem);
     console.log(selectedCategory);
 
@@ -128,12 +127,8 @@ export function ComboboxForm() {
 
     try {
       const urlData = await axios.post(
-        `http://localhost:3007/mycloset/newitem`,
-        { imgUrl: ItemUrl,
-          name:selectedItem,
-          type:selectedCategory,
-          
-        },
+        `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset/newitem`,
+        { imgUrl: ItemUrl, name: selectedItem, type: selectedCategory },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -163,7 +158,7 @@ export function ComboboxForm() {
       {!hideform ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
+            <FormField
               control={form.control}
               name="itemCategory"
               render={({ field }) => (
@@ -220,15 +215,13 @@ export function ComboboxForm() {
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormDescription>
-                      
-                    </FormDescription>
+                    <FormDescription></FormDescription>
                     <FormMessage />
                   </FormItem>
                 </>
               )}
-              />
-              
+            />
+
             <FormField
               control={form.control}
               name="itemType"

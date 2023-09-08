@@ -32,7 +32,10 @@ const LoginForm = () => {
   const router = useRouter();
 
   const getLoginFromApi = async (data: Login) => {
-    const response = await axios.post(`http://localhost:3007/login`, data);
+    const response = await axios.post(
+      `${process.env["NEXT_PUBLIC_API_URL"]}/login`,
+      data
+    );
 
     const validated = TokenFromLoginValidator.safeParse(response.data);
     if (validated.success) {
@@ -103,7 +106,9 @@ const LoginForm = () => {
                 <div className="flex justify-center text-xs pb-4">
                   <p>NEED AN ACCOUNT? </p>
                   <Link className=" flex justify-start" href="/signup">
-                    <span className="pl-2 text-violet-600 font-semibold">Sign Up</span>
+                    <span className="pl-2 text-violet-600 font-semibold">
+                      Sign Up
+                    </span>
                   </Link>
                 </div>
               </div>

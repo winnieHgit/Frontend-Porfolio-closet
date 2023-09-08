@@ -38,7 +38,7 @@ const OutfitPage = (props: OutfitPageProps) => {
     const outfitFromApi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3007/outfit/recommendation?city=${props.city}&country=${props.country}`,
+          `${process.env["NEXT_PUBLIC_API_URL"]}/outfit/recommendation?city=${props.city}&country=${props.country}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

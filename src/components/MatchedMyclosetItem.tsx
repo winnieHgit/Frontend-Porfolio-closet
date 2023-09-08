@@ -5,10 +5,6 @@ import Link from "next/link";
 
 import React from "react";
 
-
-
-
-
 interface Closet {
   id: number;
   useId: number;
@@ -16,7 +12,6 @@ interface Closet {
 }
 
 export interface Closetitems {
- 
   id: number;
   closetId: number;
   outfitId: number;
@@ -25,19 +20,20 @@ export interface Closetitems {
   imgUrl: string;
 }
 
-
-
 const MyCloset = () => {
   const [closet, setCloset] = useState<Closet | null>(null);
 
   useEffect(() => {
     const getCategoryFromApi = async () => {
       try {
-        const response = await axios.get(`http://localhost:3007/mycloset`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setCloset(response.data);
       } catch (error) {
         console.log("Something went wrong with request:", error);
@@ -53,8 +49,7 @@ const MyCloset = () => {
   return (
     <div>
       <h2 className="py-10">My Closet Page</h2>
-    
-      
+
       {closet.items.map((props: Closetitems) => {
         return (
           <div key={props.id}>

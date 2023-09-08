@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button"
-
-
+import { Button } from "@/components/ui/button";
 
 export const DeleteItemButton = () => {
   const [deleteItem, setDeleteItem] = useState(null);
@@ -14,7 +12,7 @@ export const DeleteItemButton = () => {
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      `http://localhost:3007/mycloset/items/${clostItemIdIdFromUrl}`,
+      `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset/items/${clostItemIdIdFromUrl}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -25,10 +23,15 @@ export const DeleteItemButton = () => {
     console.log(response.data);
     router.push("/mycloset");
   };
- 
+
   return (
     <div className="flex justify-center py-8 ">
-      <Button onClick={handleDelete} className=" bg-yellow-500 border-double border-4 border-indigo-300">Delete</Button>
+      <Button
+        onClick={handleDelete}
+        className=" bg-yellow-500 border-double border-4 border-indigo-300"
+      >
+        Delete
+      </Button>
     </div>
   );
 };
