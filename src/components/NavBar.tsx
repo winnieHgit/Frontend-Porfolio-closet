@@ -27,9 +27,9 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="flex justify-center pb-4 pt-4 border-dotted">
+      <div className="flex justify-center py-4">
         <Image
-          className=" bg-yellow-900  p-1 rounded-full border-dotted"
+          className=" bg-yellow-500 p-1 rounded-full border"
           src={logo2}
           alt="logo"
           width={200}
