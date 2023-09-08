@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import LoginForm from "./loginForm";
+// import LoginForm from "./loginForm";
 import logo2 from "../../image/ClosetUp.png";
 
 const NavBar = () => {
@@ -27,9 +27,9 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="flex justify-center pb-4 pt-4 border-dashed">
+      <div className="flex justify-center pb-4 pt-4 border-dotted">
         <Image
-          className=" bg-yellow-500  p-1 rounded-full border-dashed"
+          className=" bg-yellow-900  p-1 rounded-full border-dotted"
           src={logo2}
           alt="logo"
           width={200}

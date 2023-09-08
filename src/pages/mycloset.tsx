@@ -67,7 +67,7 @@ const MyCloset = () => {
       <NavBar />
       <div>
         <Link
-          className=" flex justify-center  pt-16 text-amber-500 font-semibold underline-offset-8"
+          className=" flex justify-center  pt-16 text-amber-500 font-semibold underline-offset-8 scroll-m-20 text-3xl  tracking-tight lg:text-4xl"
           href="/"
         >
           Daily Outfit Recommedation

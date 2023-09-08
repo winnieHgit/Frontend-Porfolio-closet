@@ -83,7 +83,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
 export default function Footer() {
   return (
-    <section className="my-8 text-xs text-yellow-600 font-semibold border border-dotted border-yellow-300 py-2 ">
+    <section className="my-8 text-xs text-yellow-600 font-semibold font-serif border border-dotted border-yellow-300 py-2 ">
       
       <ParallaxText baseVelocity={10}> 🌞UTFIT  ·  READY  ·  GO  </ParallaxText>
     </section>
