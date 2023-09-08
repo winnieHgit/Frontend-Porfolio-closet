@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Closetitems } from "@/pages/mycloset";
 import { DeleteItemButton } from "@/components/deleteButton";
 import NavBar from "@/components/NavBar";
-import WeatherInfo from "@/components/withoutToken";
+
 
 const ClosetItemPage = () => {
   const [item, setItem] = useState<null | Closetitems>(null);
@@ -35,6 +35,8 @@ const ClosetItemPage = () => {
     
     getItemFromApi();
   }, [clostItemIdIdFromUrl]);
+
+  
 
 
   if (item === null) {

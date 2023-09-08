@@ -39,31 +39,52 @@ import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
 
 const closetItemName = [
-  { label: "Tanks", value: "tank" },
-  { label: "T-shirts", value: "t-shirt" },
-  { label: "Blouses", value: "blouse" },
-  { label: "Actives", value: "active" },
-  { label: "Hoodies", value: "hoodie" },
-  { label: "Sweatshirts", value: "sweatshirt" },
-  { label: "Sweaters", value: "sweater" },
-  { label: "Blazers", value: "blazer" },
-  { label: "Coats", value: "coat" },
-  { label: "Raincoats", value: "raincoat" },
-  { label: "Jackets", value: "jacket" },
-  { label: "Jeans", value: "jean" },
-  { label: "Shorts", value: "shorts" },
-  { label: "Sweatpants", value: "sweatpants" },
-  { label: "Leggings", value: "legging" },
-  { label: "Pants", value: "pants" },
-  { label: "Skirts", value: "skirts" },
-  { label: "Jumpsuits", value: "jumpsuit" },
-  { label: "Maxi", value: "maxi" },
-  { label: "Midi", value: "midi" },
-  { label: "Short", value: "short" },
-  { label: "Knitwear", value: "knitwear" },
+  { label: "Tanks", value: "Tank" },
+  { label: "T-shirts", value: "T-shirt" },
+  { label: "Blouses", value: "Blouse" },
+  { label: "Actives", value: "Active" },
+  { label: "Hoodies", value: "Hoodie" },
+  { label: "Sweatshirts", value: "Sweatshirt" },
+  { label: "Sweaters", value: "Sweater" },
+  { label: "Blazers", value: "Blazer" },
+  { label: "Coats", value: "Coat" },
+  { label: "Raincoats", value: "Raincoat" },
+  { label: "Jackets", value: "Jacket" },
+  { label: "Jeans", value: "Jean" },
+  { label: "Shorts", value: "Shorts" },
+  { label: "Sweatpants", value: "Sweatpants" },
+  { label: "Leggings", value: "Legging" },
+  { label: "Pants", value: "Pants" },
+  { label: "Skirts", value: "Skirts" },
+  { label: "Jumpsuits", value: "Jumpsuit" },
+  { label: "Maxi", value: "Maxi" },
+  { label: "Midi", value: "Midi" },
+  { label: "Short", value: "Short" },
+  { label: "Knitwear", value: "Knitwear" },
 ] as const;
 
+const clothesCategory = [
+  {
+    value: "Tops",
+    label: "Tops",
+  },
+  {
+    value: "Bottoms",
+    label: "Bottoms",
+  },
+  {
+    value: "Jumpsuits",
+    label: "Jumpsuits",
+  },
+  {
+    value: "Dresses",
+    label: "Dresses",
+  },
+  
+]as const;
+
 const FormSchema = z.object({
+  itemCategory:z.string(),
   itemType: z.string({
     required_error: "Please select a item.",
   }),
@@ -82,9 +103,11 @@ export function ComboboxForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const selectedItem=data.itemType
-    // const selectedItemType=
+    const selectedItem=data.itemType;
+    const selectedCategory=data.itemCategory
+   
     console.log(selectedItem);
+    console.log(selectedCategory);
 
     const response = await axios.post(
       `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
@@ -108,6 +131,8 @@ export function ComboboxForm() {
         `http://localhost:3007/mycloset/newitem`,
         { imgUrl: ItemUrl,
           name:selectedItem,
+          type:selectedCategory,
+          
         },
         {
           headers: {
@@ -138,6 +163,72 @@ export function ComboboxForm() {
       {!hideform ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+              control={form.control}
+              name="itemCategory"
+              render={({ field }) => (
+                <>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>ClosetCategory</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-full justify-between",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? clothesCategory.find(
+                                  (type) => type.value === field.value
+                                )?.label
+                              : "Which category is your item"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-full max-h-[200px] overflow-y-auto p-0">
+                        <Command>
+                          <CommandInput placeholder="Search item..." />
+                          <CommandEmpty>No type found.</CommandEmpty>
+
+                          <CommandGroup>
+                            {clothesCategory.map((item) => (
+                              <CommandItem
+                                value={item.label}
+                                key={item.value}
+                                onSelect={() => {
+                                  form.setValue("itemCategory", item.value);
+                                }}
+                                // onSelect={() => setValue(item.value)}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    item.value === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {item.label}
+                              </CommandItem> //here
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                </>
+              )}
+              />
+              
             <FormField
               control={form.control}
               name="itemType"

@@ -5,11 +5,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useRouter } from "next/router";
 import NavBar from "@/components/NavBar";
+import { Button } from "@/components/ui/button"
+import { UserSquare2 } from 'lucide-react';
+import { KeySquare } from 'lucide-react';
 
 const LoginFormValidator = z
   .object({
-    username: z.string().nonempty(),
-    password: z.string().min(8),
+    username: z
+      .string()
+      .nonempty()
+      .email({ message: "Username cannot be empty." }),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
   })
   .strict();
 
@@ -34,7 +42,7 @@ const LoginPage = () => {
     }
   };
   const handleLoginSubmit = (data: Login) => {
-    console.log("proceed to log in", data);
+    // console.log("proceed to log in", data);
     getLoginFromApi(data);
   };
 
@@ -47,25 +55,38 @@ const LoginPage = () => {
   });
 
   return (
-    <div>
-      <NavBar />
-      <h2>Login to check your upcoming outfit</h2>
-      <form onSubmit={handleSubmit(handleLoginSubmit)}>
-        <div>
-          <label htmlFor="username">👤 Username</label>
-          <input id="username" type="text" {...register("username")}></input>
-          {errors.username && (
-            <p className="error-msg">{errors.username.message} </p>
-          )}
-          <label htmlFor="password">🔐 Password</label>
-          <input id="password" type="password" {...register("password")}></input>
-          {errors.password && (
-            <p className="error-msg">{errors.password.message} </p>
-          )}
-          <button type="submit">Log in</button>
-        </div>
-      </form>
+    <>
+    <NavBar />
+    <div className="flex border justify-center px-4 py-4" >
+      {/* <h2 className="">Login to manage your closet </h2> */}
+      <div>
+        <form className="border rounded-lg border-double bg-yellow-400  "onSubmit={handleSubmit(handleLoginSubmit)}>
+          <div>
+            <label className="flex justify-center py-4" htmlFor="username">
+            <UserSquare2 /> Username</label>
+            <input className="border mx-8" id="username" type="text" {...register("username")}></input>
+            {errors.username && (
+              <p className="error-msg">{errors.username.message} </p>
+            )}
+            
+            <label className="flex justify-center py-4" htmlFor="password">
+            <KeySquare /> Password</label>
+            <input className="border mx-8" 
+              id="password"
+              type="password"
+              {...register("password")}
+            ></input>
+            {errors.password && (
+              <p className="error-msg">{errors.password.message} </p>
+            )}
+            <div className="flex justify-center py-4">
+            <Button className="bg-yellow-500  p-4 rounded-lg border border-emerald-100" type="submit">Log in</Button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+    </>
   );
 };
 export default LoginPage;

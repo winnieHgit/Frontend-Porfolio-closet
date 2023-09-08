@@ -32,7 +32,7 @@ export interface WeatherForecastDay {
   pop: number; //Chance Precipitation/rain (%)
 }
 //Think of this as a table, where key on the left, and value on the right
-const mapIconsToOpenWeather: Record<string, string> = {
+export const mapIconsToOpenWeather: Record<string, string> = {
   snow: "13d",
   rain: "09d",
   fog: "50d",
@@ -76,28 +76,29 @@ const CalendarV2 = (props: CalendarV2Props) => {
     return;
   } else {
     return (
-      <div className="grid justify-items-end justify-center">
+      <div className="grid justify-center basis-1/2">
         {calendar.location.values.map(
           (forecastDay: WeatherForecastDay, i: number) => (
-            <DayRecommendation forecast={forecastDay} key={i} />
+            //   <DayRecommendation forecast={forecastDay} key={i} />
 
-            
-            // <div key={forecastDay.datetime} className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8">
-           
-            //   <p>{getDate(forecastDay.datetime)}</p>
-            //   {/* <Link href={`/outfit/${outfit.id}`}> */}
-            //   <Image
-            //     src={`https://openweathermap.org/img/wn/${
-            //       mapIconsToOpenWeather[forecastDay.icon]
-            //     }@2x.png`}
-            //     alt="weather icon"
-            //     width={50}
-            //     height={50}
-            //   />
-            //   <span>{forecastDay.temp}</span>
-            //   <p>Description: {forecastDay.conditions}</p>
-            //   {/* </Link> */}
-            // </div>
+            <div
+              key={forecastDay.datetime}
+              className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8"
+            >
+              <p>{getDate(forecastDay.datetime)}</p>
+              {/* <Link href={`/outfit/${outfit.id}`}> */}
+              <Image
+                src={`https://openweathermap.org/img/wn/${
+                  mapIconsToOpenWeather[forecastDay.icon]
+                }@2x.png`}
+                alt="weather icon"
+                width={50}
+                height={50}
+              />
+              <span>{forecastDay.temp}</span>
+              <p>Description: {forecastDay.conditions}</p>
+              {/* </Link> */}
+            </div>
           )
         )}
       </div>
@@ -109,19 +110,19 @@ export default CalendarV2;
 
 //after ...key={i} />
 
-  // <div key={forecastDay.datetime} className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8">
-           
-            //   <p>{getDate(forecastDay.datetime)}</p>
-            //   {/* <Link href={`/outfit/${outfit.id}`}> */}
-            //   <Image
-            //     src={`https://openweathermap.org/img/wn/${
-            //       mapIconsToOpenWeather[forecastDay.icon]
-            //     }@2x.png`}
-            //     alt="weather icon"
-            //     width={50}
-            //     height={50}
-            //   />
-            //   <span>{forecastDay.temp}</span>
-            //   <p>Description: {forecastDay.conditions}</p>
-            //   {/* </Link> */}
-            // </div>
+// <div key={forecastDay.datetime} className="flex flex-wrap border border-dashed border-r-indigo-500 border-l-indigo-500 border-b-indigo-500 py-8">
+
+//   <p>{getDate(forecastDay.datetime)}</p>
+//   {/* <Link href={`/outfit/${outfit.id}`}> */}
+//   <Image
+//     src={`https://openweathermap.org/img/wn/${
+//       mapIconsToOpenWeather[forecastDay.icon]
+//     }@2x.png`}
+//     alt="weather icon"
+//     width={50}
+//     height={50}
+//   />
+//   <span>{forecastDay.temp}</span>
+//   <p>Description: {forecastDay.conditions}</p>
+//   {/* </Link> */}
+// </div>

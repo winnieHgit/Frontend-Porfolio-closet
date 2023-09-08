@@ -5,6 +5,7 @@ import Image from "next/image";
 import apiKeys from "../../secrets/APIKEYs.json";
 import Link from "next/link";
 
+
 export interface WeatherForecast {
   location: WeatherForecastLocation;
 }

@@ -2,65 +2,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { ImagePlus } from "lucide-react";
 import { InputFile } from "@/components/Fileinput";
 import React from "react";
 import NavBar from "@/components/NavBar";
-import apiKeys from "../../secrets/APIKEYs.json";
-
-// export const ImgUpload = () => {
-//   const handleFileUpload = async (
-//     event: React.ChangeEvent<HTMLInputElement>
-//   ) => {
-//     if (event.target.files !== null) {
-//       const response = await axios.post(
-//         `https://www.filestackapi.com/api/store/S3?key=${apiKeys.filestack}`,
-//         event.target.files[0],
-//         {
-//           headers: {
-//             "Content-Type": "image/png",
-//           },
-//         }
-//       );
-//       console.log("hello");
-//       console.log(response.data.url); // Here is your new Image URL!
-
-//       const ItemUrl = response.data.url;
-
-//       try{
-//       const urlData = await axios.post(
-//         `http://localhost:3007/mycloset/add-closet-item`,
-//         {imgUrl:ItemUrl,},
-//         {headers:{
-//           Authorization:`Bearer ${localStorage.getItem("token")}`,
-//         }}
-//       );
-//       console.log(urlData);
-//       }catch(error){
-//         console.log("having error post imgUrl to the database",error)
-//       }
-//     }
-//   };
-  // return (
-  //   <>
-  //     <h1>Upload an image</h1>
-  //     return (
-  //     <div className="fixed bottom-10 right-10 bg-yellow-500  p-4 rounded-full">
-  //       <label htmlFor="picture">
-  //         <ImagePlus className="text-white" />
-  //       </label>
-  //       <Input
-  //         onChange={handleFileUpload}
-  //         className="hidden"
-  //         id="picture"
-  //         type="file"
-  //       />
-  //     </div>
-  //     );
-  //   </>
-  // );
-
+import { MousePointerClick } from "lucide-react";
 
 interface Closet {
   id: number;
@@ -117,20 +62,35 @@ const MyCloset = () => {
   return (
     <div className="overflow-x-auto">
       <NavBar />
-      {/* <h2 className="py-10 ">Welcome to My Closet</h2> */}
-
+      <div>
+        <Link
+          className=" flex justify-center  pt-16 text-amber-500 font-semibold underline-offset-8"
+          href="/"
+        >
+          Daily Outfit Recommedation
+          <MousePointerClick />
+        </Link>
+      </div>
       <InputFile />
       <div>
-        <h3 className="py-6">Tops</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1  overflow-y-auto">
+        <h3 className="mt-8 scroll-m-20 text-center mb-4 text-2xl font-semibold tracking-tight mx-2 text-yellow-500">
+          Tops
+        </h3>
+        <ul className="flex flex-row  bg-white  p-1 overflow-y-auto space-x-4">
           {tops.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row basis-1/5">
+              <div
+                key={item.id}
+                className="flex flex-row rounded-md border border-yellow-300 shadow mb-4 mx-2"
+              >
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
-                    <p>{item.name}</p>
+                    <div className="w-[100px] text-xs px-2 py-2 text-center bg-yellow-300 text-yellow-900 font-bold">
+                      {item.name}
+                    </div>
                     <Image
                       src={item.imgUrl}
+                      className="rounded-b-md"
                       alt={`Image of ${item.name}`}
                       width={100}
                       height={100}
@@ -144,13 +104,15 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Bottoms</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row  bg-yellow-100  p-1 overflow-y-auto">
           {bottoms.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row basis-1/5">
+              <div key={item.id} className=" flex flex-row ">
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
-                    <p>{item.name}</p>
+                    <p className="w-[100px] text-xs px-2 text-center py-1 mx-1">
+                      {item.name}
+                    </p>
                     <Image
                       src={item.imgUrl}
                       alt={`Image of ${item.name}`}
@@ -166,13 +128,15 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Jumpsuits</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row bg-yellow-100  p-1 overflow-y-auto">
           {jumpsuits.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row basis-1/5">
+              <div key={item.id} className=" flex flex-row ">
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
-                    <p>{item.name}</p>
+                    <p className="w-[100px] text-xs px-2 text-center py-1 mx-1">
+                      {item.name}
+                    </p>
                     <Image
                       src={item.imgUrl}
                       alt={`Image of ${item.name}`}
@@ -188,13 +152,15 @@ const MyCloset = () => {
       </div>
       <div>
         <h3 className="py-6">Dresses</h3>
-        <ul className="border-double border-4 border-indigo-300 flex flex-row basis-1/5  bg-yellow-100  p-1 overflow-y-auto">
+        <ul className="border-double border-4 border-indigo-300 flex flex-row  bg-yellow-100  p-1 overflow-y-auto">
           {dresses.map((item: Closetitems) => {
             return (
-              <div key={item.id} className=" flex flex-row basis-1/5">
+              <div key={item.id} className=" flex flex-row ">
                 <Link href={`/mycloset/items/${item.id}`}>
                   <div>
-                    <p>{item.name}</p>
+                    <p className="w-[100px] text-xs px-2 text-center py-1 mx-1">
+                      {item.name}
+                    </p>
                     <Image
                       src={item.imgUrl}
                       alt={`Image of ${item.name}`}

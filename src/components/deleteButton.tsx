@@ -25,7 +25,7 @@ export const DeleteItemButton = () => {
     console.log(response.data);
     router.push("/mycloset");
   };
-
+ 
   return (
     <div className="flex justify-center py-8 ">
       <Button onClick={handleDelete} className=" bg-yellow-500 border-double border-4 border-indigo-300">Delete</Button>
