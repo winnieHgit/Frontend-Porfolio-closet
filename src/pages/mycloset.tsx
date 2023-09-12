@@ -27,6 +27,9 @@ type CategoryTypes = "Tops" | "Bottoms" | "Jumpsuits" | "Dresses";
 const MyCloset = () => {
   const [closet, setCloset] = useState<Closet | null>(null);
 
+  const sortItemByName = (a: Closetitems, b: Closetitems) =>
+    a.name.localeCompare(b.name);
+
   useEffect(() => {
     const getCategoryFromApi = async () => {
       try {
@@ -62,12 +65,17 @@ const MyCloset = () => {
       [[], [], [], []]
     );
 
+  tops.sort(sortItemByName);
+  bottoms.sort(sortItemByName);
+  jumpsuits.sort(sortItemByName);
+  dresses.sort(sortItemByName);
+
   return (
     <div className="overflow-x-auto">
       <NavBar />
       <div>
         <Link
-          className=" flex justify-center  pt-16 text-amber-500 font-semibold underline-offset-8 scroll-m-20 text-3xl  tracking-tight lg:text-4xl"
+          className=" flex justify-center  pt-16 text-amber-600 font-semibold underline-offset-8 scroll-m-20 text-3xl  tracking-tight lg:text-4xl"
           href="/"
         >
           Daily Outfit Recommedation
