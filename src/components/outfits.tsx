@@ -59,24 +59,24 @@ const OutfitPage = (props: OutfitPageProps) => {
   }
   return (
     <div>
-      <h2 className="flex flex-row justify-center py-10">
+      <h2 className="flex flex-row justify-center py-10 font-semibold underline-offset-8 scroll-m-20 text-2xl text-yellow-900 md:text-3xl">
         <Sparkles /> Your recommended outfits <Sparkles />
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-16 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-16  mx-2">
         {!!outfits &&
           outfits.map((outfit: DailyRecommendation, i: number) => {
             return (
               <div
                 key={i}
-                className="grid grid-row justify-center justify-items-center  basis-1/2 items-start content-start	"
+                className="grid grid-row justify-center justify-items-center  basis-1/2 items-start content-start border-double hover:border-dotted border-8  border-yellow-500 py-8"
               >
                 <div
                   key={outfit.date}
-                  className=" text-xl flex justify-items-center md:my-4 text-2xl"
+                  className="text-yellow-900  text-base flex justify-items-center py-6 md:my- text-2xl font-bold"
                 >
                   {/* <Link href={`/outfits/${outfit.id}`}> // OutfitId may be empty, there may be no outfit generated */}
-                  <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-col items-center justify-center  mx-auto">
                     <span>{getDate(outfit.date)}</span>
                     <Image
                       className="flex "
@@ -96,7 +96,7 @@ const OutfitPage = (props: OutfitPageProps) => {
                     return (
                       <div
                         key={item.id}
-                        className=" flex flex-row justify-between border-double hover:border-dotted border-4  border-yellow-500  mx-auto "
+                        className=" flex flex-row justify-between   mx-auto "
                       >
                         {/* Id: {item.id} */}
 

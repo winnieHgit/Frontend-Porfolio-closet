@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Closetitems } from "@/pages/mycloset";
 import { DeleteItemButton } from "@/components/deleteButton";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/footer";
 
 const ClosetItemPage = () => {
   const [item, setItem] = useState<null | Closetitems>(null);
@@ -41,10 +42,10 @@ const ClosetItemPage = () => {
     <div className="overflow-x-auto">
       <NavBar />
       <div className=" py-8 flex  flex-col content-center flex-wrap">
-        <h2 className="flex justify-center ">individual Item Page</h2>
+        {/* <h2 className="flex justify-center text-yellow-900">individual Item Page</h2> */}
         <div className="flex-column flex-wrap py-8">
-          <div className="flex justify-center ">{item.type}</div>
-          <div className="flex justify-center ">{item.name}</div>
+          <div className="flex justify-center text-yellow-900 font-bold text-xl">{item.type}</div>
+          <div className="flex justify-center text-yellow-900">{item.name}</div>
         </div>
         <Image
           className="flex flex-wrap contend-center border-solid hover:border-dotted border-amber-200 border-8"
@@ -56,6 +57,7 @@ const ClosetItemPage = () => {
         <DeleteItemButton />
         {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
       </div>
+      <Footer />
     </div>
   );
 };
