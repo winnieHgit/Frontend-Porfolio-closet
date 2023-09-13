@@ -2,6 +2,7 @@
 
 "use client";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { Input } from "@/components/ui/input";
 import { Label } from "./ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -91,6 +92,8 @@ const FormSchema = z.object({
 export function ComboboxForm() {
   const [hideform, setHideForm] = useState(false);
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -130,6 +133,10 @@ export function ComboboxForm() {
         }
       );
       console.log(urlData);
+      
+      router.push("/mycloset");
+      //fresh page
+      location.reload();
     } catch (error) {
       console.log("having error post imgUrl to the database", error);
     }
@@ -274,8 +281,8 @@ export function ComboboxForm() {
                       </PopoverContent>
                     </Popover>
                     <FormDescription>
-                      This is the closet item that will be used in the
-                      dashboard.
+                      {/* This is the closet item that will be used in the
+                      dashboard. */}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

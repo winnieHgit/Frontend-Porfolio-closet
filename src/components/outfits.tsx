@@ -3,6 +3,8 @@ import Image from "next/image";
 import axios from "axios";
 import { mapIconsToOpenWeather } from "@/components/date-weather-outfit-v2";
 import { Sparkles } from "lucide-react";
+import Lottie from "lottie-react";
+import animationData from "../../public/animation_lmi6wy9u.json";
 
 interface DailyRecommendation {
   day: number;
@@ -59,12 +61,15 @@ const OutfitPage = (props: OutfitPageProps) => {
   }
   return (
     <div>
-      <h2 className="flex flex-row justify-center py-10 font-semibold underline-offset-8 scroll-m-20 text-2xl text-yellow-900 md:text-3xl">
+      <div className="flex justify-center justify-items-center pt-6">
+      <Lottie  className="h-40, w-40" animationData={animationData} />
+      </div>
+      <h2 className="flex flex-row justify-center pb-10 font-semibold underline-offset-8 scroll-m-20 text-2xl text-yellow-900 md:text-3xl">
         <Sparkles /> Your recommended outfits <Sparkles />
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-16  mx-2">
-        {!!outfits &&
+        {outfits &&
           outfits.map((outfit: DailyRecommendation, i: number) => {
             return (
               <div
@@ -73,7 +78,7 @@ const OutfitPage = (props: OutfitPageProps) => {
               >
                 <div
                   key={outfit.date}
-                  className="text-yellow-900  text-base flex justify-items-center py-6 md:my- text-2xl font-bold"
+                  className="text-yellow-900  text-base flex justify-items-center py-6 md:my-text-2xl font-bold"
                 >
                   {/* <Link href={`/outfits/${outfit.id}`}> // OutfitId may be empty, there may be no outfit generated */}
                   <div className="flex flex-col items-center justify-center  mx-auto">
