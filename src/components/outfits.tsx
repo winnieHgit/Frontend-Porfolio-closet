@@ -5,6 +5,10 @@ import { mapIconsToOpenWeather } from "@/components/date-weather-outfit-v2";
 import { Sparkles } from "lucide-react";
 import Lottie from "lottie-react";
 import animationData from "../../public/animation_lmi6wy9u.json";
+import animationlocationPin from "../../public/animation_lmjhs52m.json";
+import animationNotfound from "../../public/animation_lmjogx5t.json";
+import animationLoading from "../../public/animation_lmkmonzu.json";
+import Link from "next/link";
 
 interface DailyRecommendation {
   day: number;
@@ -22,9 +26,8 @@ interface DailyClosetItemsSelected {
   type: string;
 }
 
-export interface OutfitPageProps {
-  city: string;
-  country: string;
+interface GeolocationPosition {
+  coords: { longitude: number; latitude: number };
 }
 
 const getDate = (timestamp: number) => {
@@ -32,15 +35,22 @@ const getDate = (timestamp: number) => {
   return theDate.toDateString();
 };
 
-const OutfitPage = (props: OutfitPageProps) => {
+const OutfitPage = () => {
   const [outfits, setOutfits] = useState<DailyRecommendation[] | null>(null);
+  const [coordinates, setCoordinates] = useState<GeolocationPosition>({
+    coords: { latitude: 52.36, longitude: 4.9 },
+  }); //Amsterdam
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setCoordinates);
+    }
+  };
 
   useEffect(() => {
-    console.log("Running effect!");
     const outfitFromApi = async () => {
       try {
         const response = await axios.get(
-          `${process.env["NEXT_PUBLIC_API_URL"]}/outfit/recommendation?city=${props.city}&country=${props.country}`,
+          `${process.env["NEXT_PUBLIC_API_URL"]}/outfit/recommendation?lat=${coordinates.coords.latitude}&lon=${coordinates.coords.longitude}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,15 +64,47 @@ const OutfitPage = (props: OutfitPageProps) => {
     };
 
     outfitFromApi();
-  }, [props]);
+  }, [coordinates]);
 
   if (outfits === null) {
-    return <p>Loading outfit...</p>;
+    return (
+      <Lottie
+        className="h-40, w-40 flex justify-center items-center"
+        animationData={animationLoading}
+      />
+    );
+  }
+  if (outfits.length === 0) {
+    //display animation
+    return (
+      <div className="text-yellow-900 font-bold flex flex-col justify-center items-center my-10">
+        <p>Not enough clothes in your closet to generate outfit</p>
+        <Link href="/mycloset">
+          <Lottie
+            className="h-40, w-40 flex justify-center items-center"
+            animationData={animationNotfound}
+          />
+        </Link>
+      </div>
+    );
   }
   return (
     <div>
-      <div className="flex justify-center justify-items-center pt-6">
-      <Lottie  className="h-40, w-40" animationData={animationData} />
+      <div>
+        <p className="text-base pt-4 pl-4 text-yellow-900 font-semibold">
+          Set Location
+        </p>
+
+        <button className="pl-8" onClick={getLocation}>
+          <Lottie className="h-10, w-10" animationData={animationlocationPin} />
+        </button>
+        <div className="text-xs text-gray-400 pl-3 ">
+          <p>Default Location</p>
+          <span> Amsterdam, NL</span>
+        </div>
+      </div>
+      <div className="flex justify-center justify-items-center md:pt-6">
+        <Lottie className="h-40, w-40" animationData={animationData} />
       </div>
       <h2 className="flex flex-row justify-center pb-10 font-semibold underline-offset-8 scroll-m-20 text-2xl text-yellow-900 md:text-3xl">
         <Sparkles /> Your recommended outfits <Sparkles />

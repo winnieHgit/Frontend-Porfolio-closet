@@ -28,7 +28,7 @@ const ClosetItemPage = () => {
         }
       );
       setItem(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     };
 
     getItemFromApi();
@@ -57,7 +57,7 @@ const ClosetItemPage = () => {
         <DeleteItemButton />
         {/* <WeatherInfo city={"Amsterdam"} country={"Netherlands"} /> */}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

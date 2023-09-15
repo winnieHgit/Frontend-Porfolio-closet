@@ -20,7 +20,7 @@ export const DeleteItemButton = () => {
       }
     );
     setDeleteItem(response.data);
-    console.log(response.data);
+    // console.log(response.data);
     router.push("/mycloset");
   };
 

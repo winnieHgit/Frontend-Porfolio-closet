@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-// import LoginForm from "./loginForm";
 import logo2 from "../../image/ClosetUp.png";
 
 const NavBar = () => {
@@ -11,7 +10,6 @@ const NavBar = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    console.log("check here");
     localStorage.removeItem("token");
     setToken(null);
     router.push("login/");

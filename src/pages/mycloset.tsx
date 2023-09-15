@@ -6,6 +6,10 @@ import { InputFile } from "@/components/Fileinput";
 import React from "react";
 import NavBar from "@/components/NavBar";
 import { MousePointerClick } from "lucide-react";
+import Lottie from "lottie-react";
+import animationFemale from "../../public/animation_lmjibklk.json";
+import animationquestionMark from "../../public/animation_lmjidr2y.json";
+import animationMale from "../../public/animation_lmjjcznr.json";
 
 interface Closet {
   id: number;
@@ -71,14 +75,35 @@ const MyCloset = () => {
   dresses.sort(sortItemByName);
 
   return (
+    <>
     <div className="overflow-x-auto">
       <NavBar />
+      <div className="flex justify-center  pt-6">
+        <p>
+          <Lottie
+            className="h-40, w-40 flex flex-grow justify-center items-center"
+            animationData={animationMale}
+          />
+        </p>
+        {/* <span>
+          <Lottie
+            className="h-20, w-20 items-center"
+            animationData={animationquestionMark}
+          />
+        </span> */}
+        <span>
+          <Lottie
+            className="h-40, w-40 flex items-center "
+            animationData={animationFemale}
+          />
+        </span>
+      </div>
       <div>
         <Link
-          className=" flex justify-center  pt-16 text-amber-600 font-semibold underline-offset-8 scroll-m-20 text-3xl  tracking-tight lg:text-4xl"
+          className=" flex justify-center  pb-10 text-amber-600 font-semibold underline-offset-8 scroll-m-20 text-xs  tracking-tight lg:text-2xl"
           href="/"
         >
-          Daily Outfit Recommedation
+          Check Out Daily Outfit Recommedations
           <MousePointerClick />
         </Link>
       </div>
@@ -204,6 +229,7 @@ const MyCloset = () => {
         </ul>
       </div>
     </div>
+    </>
   );
 };
 export default MyCloset;

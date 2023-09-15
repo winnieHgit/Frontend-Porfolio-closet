@@ -66,15 +66,8 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
     <div className="parallax">
       <motion.div className="scroller " style={{ x }} >
         <span className="text-xs md:text-base px-4">{children} </span>
-        <span className="text-xs md:text-base px-4">{children} </span>
         {/* <span className="text-xs md:text-base>">{children} </span> */}
-        
-        
-       
-       
-        
-      
-      
+        <span className="text-xs md:text-base px-4">{children} </span>
        
       </motion.div>
     </div>
@@ -83,9 +76,9 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
 export default function Footer() {
   return (
-    <section className="my-4  text-yellow-600 font-semibold font-serif  py-2 bottom-0">
+    <section className="my-4  text-yellow-600 font-semibold font-serif py-2 bottom-0">
       
-      <ParallaxText baseVelocity={10} > 🌞UTFIT  ·  READY  ·  GO  </ParallaxText>
+      <ParallaxText baseVelocity={10} > 🌞UTFIT · READY · GO </ParallaxText>
     </section>
   );
 }

@@ -26,7 +26,7 @@ const SignupPage = () => {
       `${process.env["NEXT_PUBLIC_API_URL"]}/signup`,
       data
     );
-    console.log(data.username);
+    // console.log(data.username);
     router.push("/");
   };
 

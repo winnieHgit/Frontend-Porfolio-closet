@@ -61,7 +61,7 @@ const LoginPage = () => {
     <>
       <NavBar />
       <div className="flex border justify-center px-4 py-4">
-        {/* <h2 className="">Login to manage your closet </h2> */}
+       
         <div>
           <form
             className="border rounded-lg border-double bg-yellow-400  "

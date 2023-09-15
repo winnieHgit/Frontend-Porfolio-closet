@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useRouter } from "next/router";
-import NavBar from "@/components/NavBar";
+
 import { Button } from "@/components/ui/button";
 import { UserSquare2 } from "lucide-react";
 import { KeySquare } from "lucide-react";

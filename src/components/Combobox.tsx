@@ -38,24 +38,24 @@ import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
 
 const closetItemName = [
-  { label: "Tanks", value: "Tank" },
-  { label: "T-shirts", value: "T-shirt" },
-  { label: "Blouses", value: "Blouse" },
-  { label: "Actives", value: "Active" },
-  { label: "Hoodies", value: "Hoodie" },
-  { label: "Sweatshirts", value: "Sweatshirt" },
-  { label: "Sweaters", value: "Sweater" },
-  { label: "Blazers", value: "Blazer" },
-  { label: "Coats", value: "Coat" },
-  { label: "Raincoats", value: "Raincoat" },
-  { label: "Jackets", value: "Jacket" },
-  { label: "Jeans", value: "Jean" },
+  { label: "Tank", value: "Tank" },
+  { label: "T-shirt", value: "T-shirt" },
+  { label: "Blouse", value: "Blouse" },
+  { label: "Active", value: "Active" },
+  { label: "Hoodie", value: "Hoodie" },
+  { label: "Sweatshirt", value: "Sweatshirt" },
+  { label: "Sweater", value: "Sweater" },
+  { label: "Blazer", value: "Blazer" },
+  { label: "Coat", value: "Coat" },
+  { label: "Raincoat", value: "Raincoat" },
+  { label: "Jacket", value: "Jacket" },
+  { label: "Jeans", value: "Jeans" },
   { label: "Shorts", value: "Shorts" },
   { label: "Sweatpants", value: "Sweatpants" },
-  { label: "Leggings", value: "Legging" },
+  { label: "Leggings", value: "Leggings" },
   { label: "Pants", value: "Pants" },
-  { label: "Skirts", value: "Skirts" },
-  { label: "Jumpsuits", value: "Jumpsuit" },
+  { label: "Skirt", value: "Skirt" },
+  { label: "Jumpsuit", value: "Jumpsuit" },
   { label: "Maxi", value: "Maxi" },
   { label: "Midi", value: "Midi" },
   { label: "Short", value: "Short" },
@@ -91,6 +91,8 @@ const FormSchema = z.object({
 
 export function ComboboxForm() {
   const [hideform, setHideForm] = useState(false);
+  const [closeCategory, setCloseCategory] = useState<boolean>(false);
+  const [closeType, setCloseType] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -102,8 +104,8 @@ export function ComboboxForm() {
     const selectedItem = data.itemType;
     const selectedCategory = data.itemCategory;
 
-    console.log(selectedItem);
-    console.log(selectedCategory);
+    // console.log(selectedItem);
+    // console.log(selectedCategory);
 
     const response = await axios.post(
       `https://www.filestackapi.com/api/store/S3?key=${process.env["NEXT_PUBLIC_FILESTACK_API_KEY"]}`,
@@ -133,7 +135,7 @@ export function ComboboxForm() {
         }
       );
       console.log(urlData);
-      
+
       router.push("/mycloset");
       //fresh page
       location.reload();
@@ -166,12 +168,16 @@ export function ComboboxForm() {
                 <>
                   <FormItem className="flex flex-col">
                     <FormLabel>ClosetCategory</FormLabel>
-                    <Popover>
+                    <Popover
+                      open={closeCategory}
+                      onOpenChange={setCloseCategory}
+                    >
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant="outline"
                             role="combobox"
+                            aria-expanded={closeCategory}
                             className={cn(
                               "w-full justify-between",
                               !field.value && "text-muted-foreground"
@@ -197,6 +203,7 @@ export function ComboboxForm() {
                                 value={item.label}
                                 key={item.value}
                                 onSelect={() => {
+                                  setCloseCategory(false);
                                   form.setValue("itemCategory", item.value);
                                 }}
                                 // onSelect={() => setValue(item.value)}
@@ -230,12 +237,13 @@ export function ComboboxForm() {
                 <>
                   <FormItem className="flex flex-col">
                     <FormLabel>ClosetItem</FormLabel>
-                    <Popover>
+                    <Popover open={closeType} onOpenChange={setCloseType}>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant="outline"
                             role="combobox"
+                            aria-expanded={closeType}
                             className={cn(
                               "w-full justify-between",
                               !field.value && "text-muted-foreground"
@@ -261,6 +269,7 @@ export function ComboboxForm() {
                                 value={item.label}
                                 key={item.value}
                                 onSelect={() => {
+                                  setCloseType(false);
                                   form.setValue("itemType", item.value);
                                 }}
                                 // onSelect={() => setValue(item.value)}
