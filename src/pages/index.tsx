@@ -7,8 +7,6 @@ import OutfitPage from "../components/outfits";
 // import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import LoginForm from "@/components/loginForm";
-import Footer from "@/components/footer";
-import Location from "@/components/setLocation";
 
 // const MyMap = dynamic(() => import("@/components/Map"), { ssr: false });
 

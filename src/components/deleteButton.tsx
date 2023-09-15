@@ -1,17 +1,17 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 export const DeleteItemButton = () => {
-  const [deleteItem, setDeleteItem] = useState(null);
+  // const [deleteItem, setDeleteItem] = useState(null);
 
   const router = useRouter();
 
   const clostItemIdIdFromUrl = router.query.itemId;
 
   const handleDelete = async () => {
-    const response = await axios.delete(
+    await axios.delete(
       `${process.env["NEXT_PUBLIC_API_URL"]}/mycloset/items/${clostItemIdIdFromUrl}`,
       {
         headers: {
@@ -19,7 +19,7 @@ export const DeleteItemButton = () => {
         },
       }
     );
-    setDeleteItem(response.data);
+    // setDeleteItem(response.data);
     // console.log(response.data);
     router.push("/mycloset");
   };
@@ -35,6 +35,3 @@ export const DeleteItemButton = () => {
     </div>
   );
 };
-
-
-

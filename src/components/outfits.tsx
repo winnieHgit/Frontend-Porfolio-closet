@@ -92,16 +92,12 @@ const OutfitPage = () => {
     <div>
       <div>
         <p className="text-base pt-4 pl-4 text-yellow-900 font-semibold">
-          Set Location
+          Set Current Location
         </p>
 
-        <button className="pl-8" onClick={getLocation}>
+        <button className="pl-16" onClick={getLocation}>
           <Lottie className="h-10, w-10" animationData={animationlocationPin} />
         </button>
-        <div className="text-xs text-gray-400 pl-3 ">
-          <p>Default Location</p>
-          <span> Amsterdam, NL</span>
-        </div>
       </div>
       <div className="flex justify-center justify-items-center md:pt-6">
         <Lottie className="h-40, w-40" animationData={animationData} />
