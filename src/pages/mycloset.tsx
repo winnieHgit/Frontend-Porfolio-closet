@@ -7,7 +7,7 @@ import React from "react";
 import NavBar from "@/components/NavBar";
 import { MousePointerClick } from "lucide-react";
 import Lottie from "lottie-react";
-import animationFemale from "../../public/animation_lmjibklk.json";\
+import animationFemale from "../../public/animation_lmjibklk.json";
 import animationMale from "../../public/animation_lmjjcznr.json";
 
 interface Closet {
